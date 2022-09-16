@@ -8,13 +8,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.io.FileNotFoundException;
-
 @Controller
 public class WebController {
     private FindCity findCity;
 
-    public WebController() throws FileNotFoundException {
+    public WebController() {
         findCity = new FindCity();
     }
 
@@ -24,15 +22,16 @@ public class WebController {
     }
 
     @PostMapping("/yourarea")
-    public String findArea(@RequestParam("area")String area, RedirectAttributes redirectAttributes){
-        System.out.println(area);
-        redirectAttributes.addAttribute("area",area);
+    public String yourArea(@RequestParam("areacode") String areaCode, RedirectAttributes redirectAttributes){
+        System.out.println(areaCode);
+        redirectAttributes.addAttribute("areacode", areaCode);
         return "redirect:/yourarea";
     }
 
     @GetMapping("/yourarea")
-    public String areaFound(@RequestParam("area")String area, Model model){
-        String city = findCity.find(area);
+    public String areaFound(@RequestParam("areacode") String areaCode, Model model){
+        //String city = findCity.find(areacode);
+        String city = findCity.findCity(areaCode);
         System.out.println(city);
         model.addAttribute("area",city);
         return "success";

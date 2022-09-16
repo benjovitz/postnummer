@@ -1,16 +1,16 @@
 package com.example.postnummer.service;
 
 import java.io.FileNotFoundException;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class FindCity {
-    private List<City> cityIndex = new LinkedList<>();
+    private List<City> cityIndex;
+    private Map<String, String> cityMap;
 
-    public FindCity() throws FileNotFoundException {
+    public FindCity() {
         Filehandler filehandler = new Filehandler();
         this.cityIndex=filehandler.records();
+        this.cityMap=filehandler.cityMap();
     }
     public String find (String area){
         Iterator<City> itr = cityIndex.iterator();
@@ -22,5 +22,10 @@ public class FindCity {
         }
         return null;
     }
+    public String findCity(String areacode){
+        return cityMap.get(areacode);
+    }
+
+
 
 }
